@@ -13,6 +13,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(rateLimiter);
 
+// Health check — Render pings this to verify the service is up
+app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
+
 // Swagger docs — no auth required
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

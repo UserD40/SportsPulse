@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: sportspulse
+    runtime: node
+    plan: free
+    repo: https://github.com/UserD40/SportsPulse
+    branch: main
+    buildCommand: npm install && DB_PATH=/data/sportspulse.db node src/seed.js
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_PATH
+        value: /data/sportspulse.db
+    disk:
+      name: sportspulse-data
+      mountPath: /data
+      sizeGB: 1
